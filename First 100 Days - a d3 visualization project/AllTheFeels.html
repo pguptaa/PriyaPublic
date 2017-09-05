@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme Simply Me</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+      background-color: #1abc9c; /* Green */
+      color: #ffffff;
+  }
+  .bg-2 { 
+      background-color: #474e5d; /* Dark Blue */
+      color: #ffffff;
+  }
+  .bg-3 { 
+      background-color: #ffffff; /* White */
+      color: #555555;
+  }
+  .bg-4 { 
+      background-color: #2f2f2f; /* Black Gray */
+      color: #fff;
+  }
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+  }
+  .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }
+
+  #dataset-picker {
+    color:black;
+    margin-left: 100px;
+    transform: translate(280px,-470px);
+  }
+
+  #dataset-picker :last-child {
+    margin-left: 10px;
+    font-size: 10px;
+  }
+
+  #stock_market {
+    color:black;
+    transform: translate(100px,110px);
+  }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">W209 Spring 2017</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">        
+        <li><a href="https://www.linkedin.com/in/priyanicolegupta/">Priya Gupta</a></li>
+        <li><a href="https://www.linkedin.com/in/ankithgunapal/">Ankith Gunapal</a></li>
+        <li><a href="https://www.linkedin.com/in/lisabarcelo/">Lisa Barcelo</a></li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- First Container -->
+<div class="container-fluid1 bg-3 text-center">
+  <h3 class="margin">First 100 Days: A Look at Presidential Productivity</h3>
+  <img src="watermark2.jpg" class="img-responsive img-rectangle margin" style="display:inline" alt="Bird" width="550" height="550">
+  <h4>How important are the first 100 days of office? Take a walk through the follow viz to find out. We look at approval ratings, executive orders, stock market fluctuations, and control of congress, to find out which president made the MOST impact in the first 100 days. </h4>
+</div>
+
+<!-- Second Container -->
+<!-- <div class="container-fluid bg-4 text-center">
+  <h3 class="margin">Goals & Purposes</h3>
+  <p>Our team wanted to explore the first 100 days of the last dozen or so presidents, comparing a variety of corroborating factors. By exploring the dominant political party, the number of executive orders, the fluctuations of the stock market, approval ratings, and various other components of each new presidency, our aim is to put 2017 in context, and help us understand our country’s history better.
+ </p>
+</div>
+ -->
+<!-- Third Container (Grid) -->
+<div class="container-fluid bg-3 text-center">    
+  
+</div>
+
+
+  <!-- Count of Executive Orders -->
+
+
+<div class="container-fluid bg-4 text-center">
+<h3 class="margin">#1: Executive Orders</h3>    
+<img src="orders.png"  class="img-responsive img-circle margin" style="display:inline" width="250" height="250" >
+<h4 class="margin">An executive order is a statement by the President instructing federal agencies on how to use their resources.</h4>
+  <p>Click on the lines to sort! </p>
+ 
+</div>
+</div>
+
+<head>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheet2.css">
+
+</head>
+  <body>
+
+<script>
+
+    var w = 700;
+  var h = 450;
+  var barPadding = 3;
+  var y_pad = 40;
+  var x_pad = 100;
+  var y_top = 140;
+  
+  var orders = d3.select("body")
+      .append("svg")
+      .attr("width", w)
+      .attr("height", h);
+    
+  d3.csv("project_orders.csv",function(data) {
+      dataset1 = data;
+
+  var democrat = ["Franklin D. Roosevelt","Harry Truman","John F. Kennedy","Lyndon Johnson","Jimmy Carter","Bill Clinton","Barack Obama"]
+
+  orders.selectAll("rect")
+    .data(dataset1)
+    .enter()
+    .append("rect")
+    .attr("class", "orders_rec")
+    .attr("x",0)
+    .attr("y",function(d, i) {
+      return (i * ((h-y_pad*2) / dataset1.length))+barPadding+y_pad;
+        })
+    .attr("width",function(d) {
+      return 20*parseInt(d.executive_orders)+1;
+        })
+    .attr('height',20)
+    .attr("transform", "translate(150,0)")
+    .style("stroke","black")
+    .attr("fill", function(d) {
+
+        if (democrat.indexOf(d.president) >= 0) {
+                return "DarkBlue";
+            }
+          else {
+            return "DarkRed";
+          };
+            })
+    
+    .on("click", function() {
+                sortBars1();
+        })
+    
+    
+    ; //end of rect for orders 
+    
+
+    var yScale = d3.scaleOrdinal()
+      .domain(dataset1.map(function(d) {
+        return d.president;
+          })    
+          )
+      .range(dataset1.map(function(d) {
+        return dataset1.indexOf(d)*((h-y_pad*2) / dataset1.length)+barPadding+y_pad;})
+        );
+        
+    var xScale = d3.scaleLinear()
+      .domain([0,d3.max(dataset1,function(d) {
+        return parseInt(d.executive_orders);
+          })]
+          )
+      .range([150,d3.max(dataset1,function(d){
+        return 20*parseInt(d.executive_orders)+151;
+          })]
+        );
+      
+    var yAxis = d3.axisLeft()
+      .scale(yScale)
+      .tickSize(0, 0, 0);
+      
+    var xAxis = d3.axisBottom()
+      .scale(xScale)
+      
+    orders.append("g")
+        .attr("class", "yaxis")
+      .attr("transform", "translate(150,15)")
+      .call(yAxis)
+      .selectAll('text')
+      .style("font-size","12px");
+      
+    orders.append("g")
+        .attr("class", "axis")
+      .attr("transform", "translate(0, "+(h-y_pad-9)+")")
+      .call(xAxis)
+      .selectAll('text')
+      .style("font-size","12px");
+      
+    orders.append("text")
+        .attr("class", "axis_t")
+            //.attr("transform", "translate(" + (w/2.5) + "," + h + ")")
+            .style("text-anchor", "middle")
+            .text("Count of Executive Orders")
+            .attr("transform", "translate(" + (400) + "," + h + ")");
+      
+      
+      var sortOrder = false;
+      var sortBars1 = function() {
+      
+      
+        sortOrder = !sortOrder;
+        
+          orders.selectAll(".orders_rec")
+
+          //orders.selectAll("rect")
+          
+             .sort(function(a, b) {
+                if (sortOrder) {
+                  return d3.descending(parseInt(a.executive_orders,10), parseInt(b.executive_orders,10));
+              
+                } else {
+                  return d3.ascending(parseInt(a.Year,10), parseInt(b.Year,10));
+                }
+              })
+             .transition()
+             .delay(function(d, i) {
+               return i * 50;
+             })
+             .duration(1000)
+             .attr("y", function(d, i) {
+                return yScale(i);
+             })
+             .attr("fill", function(d) {
+            if (sortOrder) {
+              if (democrat.indexOf(d.president) >= 0) {
+                return "DarkBlue";}
+              else {return "DarkRed";};
+                }
+            else {
+              if (democrat.indexOf(d.president) >= 0) {
+                return "DarkBlue";}
+              else {return "DarkRed";};
+                  }
+                });
+            
+        
+            var len = dataset1.length;
+            var indices = new Array(len);
+        
+            if (sortOrder) {
+              for (var i = 0; i < len; ++i) indices[i] = i;
+              indices.sort(function (a, b) {
+                return parseFloat(dataset1[a].executive_orders) > parseFloat(dataset1[b].executive_orders) ? -1 : parseFloat(dataset1[a].executive_orders) < parseFloat(dataset1[b].executive_orders) ? 1 : 0; });
+              
+              
+              
+              
+              }
+               else {
+              
+              d3.select("#avg_orders").remove();
+              d3.select("#avg_orders_rec").remove();
+              
+              indices = [0,1,2,3,4,5,6,7,8,9,10,11]
+            }
+            
+            
+            yScale.domain(indices.map(function(d){return dataset1[d].president;})
+        
+              );
+        
+        
+          orders.selectAll(".yaxis")
+              .transition()
+              .duration(2000)
+                  .call(yAxis);
+
+        
+          }; //end of sort function for orders
+
+          
+      
+    }); //end of orders csv
+</script>
+    
+</script>
+</body>
+<br>
+<!--Approval Ratings-->
+
+<div class="container-fluid bg-4 text-center">
+<h3 class="margin">#2: Approval Ratings</h3>
+<img src="approval.png" class="img-responsive img-circle margin" style="display:inline" width="250" height="250">   
+<h4 class="margin">The country just chose their leader--but are the leaders living up to expectations? </h4>
+  <p>Hover over the lines to see how the ratings changed for each president! </p>
+
+</div>
+</div>
+
+<body>
+<br>
+<script>
+var margin = {top: 60, right: 40, bottom: 10, left: 30},
+      width2 = 500 - margin.left - margin.right,
+      height2 = 450 - margin.top - margin.bottom;
+    
+  var approval_par = d3.select("body")
+      .append("svg")
+        .attr("width", width2 + margin.left + margin.right)
+        .attr("height", height2 + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");;
+    
+    
+    d3.csv("approval_time2.csv",function(data) {
+    
+    data.forEach(function(d) {
+        d.approval = parseInt(d.Approval);
+        d.rating = +d.Rating;
+        });
+      
+      //console.log(data);
+      dataset_appr = data;
+    
+    var republican = ["Dwight D. Eisenhower","Richard Nixon","Ronald Reagan","George Bush","George W. Bush"]
+    var x = d3.scaleLinear().range([0, width2]);  
+    var y = d3.scaleLinear().range([height2, 0]);
+    var y1 = d3.scaleLinear().range([height2, 0]);
+   
+
+  var color_ap = ["#EEE8AA", "#F0E68C", "#DAA520", "#FFD700", "#FFA500", "#FF8C00", "#CD853F", "#D2691E", "#8B4513","#A0522D"]
+  
+  x.domain(d3.extent(data, function(d) { return d.approval; }));
+  y.domain([40, d3.max(dataset_appr, function(d) {
+      return Math.max(d.rating); })]); 
+  
+  y1.domain([40, d3.max(dataset_appr, function(d) {
+          return Math.max(d.rating); })]); 
+      
+  var rate_line = d3.line() 
+        .x(function(d) { return x(d.approval); })
+        .y(function(d) { return y(d.rating); });
+      
+  var dataNest = d3.nest()
+          .key(function(d) {return d.President;})
+          .entries(dataset_appr);
+  
+  var color = d3.scaleOrdinal(color_ap);
+  
+    i=0     
+  dataNest.forEach(function(d) { 
+      approval_par.append("path")
+       .attr("class", "line")
+      //.style("stroke", function(d){return color(i)})
+      .style("stroke",function(){
+
+          if (republican.indexOf(dataset_appr[i].President) >= 0) {
+                return "DarkRed";
+            }
+          else {
+            return "DarkBlue";
+          };
+            })
+      .style("stroke-width",2)
+      .attr("d", rate_line(d.values))
+      .attr("id", "path"+i);
+        i+=1
+          });
+    
+  //remove x-axis   
+  /*approval_par.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));*/
+      
+  approval_par.append("g")
+        .attr("class", "axis")
+        .call(d3.axisLeft(y).tickFormat(function(d) { return d + "%"; }));
+  
+  approval_par.append("g")
+        .attr("class", "axis")
+      .attr("transform", "translate(" + [width2] + " ,0)")  
+        .call(d3.axisRight(y1).tickFormat(function(d) { return d + "%"; }));
+  
+    approval_par.append("text")
+      .attr("class", "axis_y_t")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -40)
+          .attr("x",-height2/1.5)
+          .text("Approval Ratings (%)"); 
+      
+      
+  approval_par.append("text")
+    .attr("class", "title")
+        .style("text-anchor", "middle")
+    .attr("transform", "translate(" + (0) + ","+[-10]+")")
+    .text("Day 0")
+     .style("font-size","12px");
+    
+  approval_par.append("text")
+    .attr("class", "title")
+        .style("text-anchor", "middle")
+    .attr("transform", "translate(" + (width2-15) + ","+[-10]+")")
+    .text("Day 100")
+    .style("font-size","12px");
+          
+  
+  
+  approval_par.selectAll(".line")
+    .on("mouseover", function(d) {
+       
+      //get id of record to lookup in dataset and append label
+      
+      path_id = parseInt(d3.select(this)._groups[0][0].id[4])
+      path_id_end = path_id + 9
+      
+      approval_start = parseInt(dataset_appr[path_id].Rating)
+      approval_end = parseInt(dataset_appr[path_id_end].Rating)
+      president = dataset_appr[path_id].President
+      delta = approval_end - approval_start
+      avg = (approval_end + approval_start)/2
+
+      if (delta > 0) {
+        delta = "+"+ String(delta);
+          };
+
+      d3.select(this)
+        .style("stroke-width", 5);
+        
+       approval_par.append("text")
+          .attr("id", "appr_label_tip")
+          .style("font-size","10px")
+        .attr("x",width2/2)
+        .attr("y",function() {
+          return y(avg)-20
+        })
+          .attr("text-anchor", "middle")
+          .attr("font-family", "sans-serif")
+          .attr("fill", "black")
+        .attr("font-weight", "bold")
+          .html(president+ " (" + delta +"%)");
+        
+
+
+    
+    }) //end of mouseover
+    
+    .on("mouseout", function(d) {
+      d3.select(this)
+        //.transition()
+      .style("stroke-width", 2);
+      d3.select("#appr_label_tip").remove();
+    
+    })//end of mouse out
+    ;//end of path
+    
+  approval_par.append("text")
+    .attr("class", "title")
+        .style("text-anchor", "middle")
+    .attr("transform", "translate(" + (width/4) + ","+[-40]+")")
+    .text("Approval Ratings During First 100 Days")
+    .style("font-size","16px");
+    
+  }); //end of approval_par csv
+</script> 
+<br>
+</body> 
+
+
+
+<!--Stock Market-->
+
+<div class="container-fluid bg-4 text-center">
+<h3 class="margin">#3 Stock Market Performance</h3>
+<img src="stock.png" class="img-responsive img-circle margin" style="display:inline" width="250" height="250">   
+<h4 class="margin">Wall Street is watching! Often the new presidential policies have been known to send the stock tumbling--or soaring! </h4>
+  <p> Use the drop down menu to find out how the market did, and hover over the bars for more detail.</p>
+ 
+</div>
+
+<div class ="description" id="stock_market" >
+            <table>
+          <tr>
+            <td>
+              <select id="dropdown">
+                <option id="item" value="sp">S&P 500</option>
+                <option id="item" value="dow">Dow Jones Index</option>
+              </select>
+            </td>
+        </tr>
+        <tr>
+              <td>
+                <ul>
+                  <li><input type="checkbox" class="checkbox" name="check" value="sort"> </li>
+                  <li>Sort by decreasing order</li>
+                </ul>
+              </div>
+            </td>
+
+        </tr>
+        </table>
+    </div>
+    <br>
+
+</div>
+<div id="chart-container" style="text-align:left;">
+<body>
+
+<script>
+
+var w = 600;
+  var h = 450;
+
+  var padding3 = 25;
+  var padding3l = 120;
+
+
+  var stock = d3.select("body")
+        .append("svg")
+      .attr("width", w)
+      .attr("height", h);
+
+
+var dataset = [
+ {name : "John F. Kennedy", sp500 : 8.92, dow : 6.99, year : 1961},
+ {name : "Lyndon B Johnson", sp500 : 2.9, dow : 3.02, year : 1965},
+ {name : "Richard Nixon", sp500 : 1.97, dow : 2.03, year : 1969},
+ {name : "Jimmy Carter", sp500 : -4.4, dow : -3.35, year : 1977},
+ {name : "Ronald Regan", sp500 : 0.88, dow : 4.95, year : 1980},
+ {name : "George H.W. Bush", sp500 : 8.03, dow : 8.21, year : 1989},
+ {name : "Bill Clinton", sp500 : 1.57, dow : 5.72, year : 1993},
+ {name : "George W Bush", sp500 : -6.93, dow : 1.39, year : 2001},
+ {name : "Barack Obama", sp500 : 8.39, dow : 2.76, year : 2009},
+ ];
+
+  var yScale3 = d3.scaleLinear()
+            .domain(d3.extent(dataset, function(d){return d.sp500;}))
+            .range([w-1.2*padding3l,0]);
+  var yScale_axis3 = d3.scaleLinear()
+            .domain(d3.extent(dataset,
+              function(d){return d.sp500*1.0/100;}))
+            .range([w-1.2*padding3l,0]);
+
+    var div = d3.select("body").append("div")   
+                .attr("class", "tooltip")               
+                .style("opacity", 0); 
+
+
+  var xScale3 = d3.scaleBand()
+            .domain(dataset.map(function(d){ return d.name;}))
+            .rangeRound([padding3l,h+padding3l])
+            .padding(0.5);  
+
+  //Initialize state of chart according to drop down menu
+  var state = d3.selectAll("option");
+
+    var value = "sp";
+  d3.selectAll("select").on("change", function() {
+          //console.log("Hi")
+        var value= this.value;
+
+  })
+
+  var democrat = ["John F. Kennedy","Lyndon B Johnson","Jimmy Carter","Bill Clinton","Barack Obama"]
+
+  stock.selectAll("rect")
+    .data(dataset)
+    .enter()
+    .append("rect")
+    .attr("class", function(d){return d.sp500 < 0 ? "negative" : "positive";})
+    .attr("x", function(d){
+            return xScale3(d.name);
+          })          
+    .attr("y",function(d) {
+        //return h-y_pad-4*d;
+        return yScale3(Math.max(0, d.sp500));
+      })
+    .attr("width", xScale3.bandwidth()) 
+    .attr("height", function(d) {
+      return Math.abs(yScale3(d.sp500) - yScale3(0)); 
+        })
+    .attr("fill",function(d){
+        if (democrat.indexOf(d.name) >= 0) {
+          return "DarkBlue";}
+        else {return "DarkRed";};
+            })
+    .on('mouseover', function(d){
+      //console.log(value)
+              d3.select(this)
+                  .style("opacity", 0.2)
+                  .style("stroke", "black")
+          
+          var info = div
+                  .style("opacity", 1)
+                  .style("left", (d3.event.pageX+10) + "px")
+                  .style("top", (d3.event.pageY-30) + "px")
+                  .style("font-size", "10px")
+                  .text(d.name);
+
+          if(value == "sp"){
+            info.append("p")
+                  .style("font-size", "12px")
+                  .text(formatPercentmouse(d.sp500*1.0/100));
+
+          }
+          else if(value == "dow"){
+            info.append("p")
+                   .style("font-size", "12px")
+                  .text(formatPercentmouse(d.dow*1.0/100));
+          }
+
+
+            })
+                .on('mouseout', function(d){
+                  d3.select(this)
+              .style('stroke-opacity',0.5)
+              .style('stroke','#a8a8a8')
+              .style("opacity",1);
+                         //});
+                          
+              div
+                  .style("opacity", 0);
+                }); 
+         
+        ;//end of rect for stock
+      
+
+  var p = Math.max(0, d3.precisionFixed(0.05) - 2),
+  //var p = 2,
+    formatPercent = d3.format("." + p + "%");
+    var formatPercentmouse = d3.format("." + 2 + "%");
+
+  //Create y axis
+  var yAxis3 = d3.axisLeft().scale(yScale_axis3).ticks(20).tickFormat(formatPercent);
+
+
+  stock.append("g")
+    .attr("class", "yaxis")
+    .attr("transform", "translate(130,0)")
+    .call(yAxis3)
+    .selectAll('text')
+    .style("font-size","12px");
+
+  stock.append("text")
+        .attr("transform", "rotate(0)")
+        .attr("y", 210)
+        .attr("x",0)
+        .attr("color",'black')
+        .style("font-size", "12px")
+        .style("text-anchor", "axisRight")
+        .text("% change in"); 
+
+        stock.append("text")
+        .attr("transform", "rotate(0)")
+        .attr("y", 230)
+        .attr("x",0)
+        .attr("color",'black')
+        .style("font-size", "12px")
+        .style("text-anchor", "right")
+        .text("stock market ");       
+      
+
+
+    //Sort data when sort is checked
+    d3.selectAll(".checkbox").
+    on("change", function(){
+      var state = d3.selectAll("option");
+      var sort = d3.selectAll(".checkbox");
+      /*
+      if((sort.property("checked") && value == "sp") || (sort.property("checked") && value == "dow")) {
+        var temp = dataset
+        var data1 = temp.sort(sortChoice())
+      }
+      else {
+        var data1 = dataset
+      }*/
+      var x0 = xScale3.domain(dataset.sort(sortChoice())
+      //var x0 = xScale.domain(data1
+      .map(function(d){return d.name}))
+      .copy();
+
+      var transition = stock.transition().duration(750);
+      var delay = function(d, i){return i*10;};
+
+      transition.selectAll("rect")
+      .delay(delay)
+      .attr("x", function(d){return x0(d.name);});
+
+    })
+
+    //Function to sort data when sort box is checked
+    function sortChoice(){
+        var state = d3.selectAll("select");
+        var sort = d3.selectAll(".checkbox");
+        value = document.getElementById("dropdown").value;
+        //console.log(temp)
+
+        if(sort.property("checked") && value == "sp"){
+          var out = function(a,b){return b.sp500 - a.sp500;}
+          return out;
+        }
+        else if(sort.property("checked") && value == "dow"){
+          var out = function(a,b){return b.dow - a.dow;}
+          return out;
+        }
+        
+        else{
+          var out = function(a,b){return d3.ascending(a.year, b.year);}
+          //var out = function(a,b){return (a.name - b.name);}
+          return out;
+        }
+    };
+
+  //Change data to correct values on input change
+      d3.selectAll("select").
+      on("change", function() {
+          //console.log("Hi change")
+        var value= this.value;
+
+        if(value=="sp"){
+          var sort = d3.selectAll(".checkbox");
+          sort.property("checked",false);
+          var yScale3 = d3.scaleLinear()
+            .domain(d3.extent(dataset, function(d){return d.sp500;}))
+            .range([w-1.2*padding3l,0]);
+          var x_value = function(d){return d.sp500;};
+          var color = function(d){return d.sp500 < 0 ? "negative" : "positive";};
+          var y_value = function(d){
+              return yScale3(Math.max(0, d.sp500)); 
+            };
+            var height_value = function(d){
+              return Math.abs(yScale3(d.sp500) - yScale3(0));
+            };  
+        }
+        else if(value=="dow"){
+          //console.log(value)
+          var sort = d3.selectAll(".checkbox");
+          sort.property("checked",false);
+          var yScale3 = d3.scaleLinear()
+            .domain(d3.extent(dataset, function(d){return d.sp500;}))
+            .range([w-2*padding3l -5,.2*padding3l]);
+          var x_value = function(d){return d.dow;};
+          var axis_value = function(d){return d.dow*0.01;};
+          var color = function(d){return d.dow < 0 ? "negative" : "positive";};
+          var y_value = function(d){
+              return yScale3(Math.max(0, d.dow)); 
+            };
+            var height_value = function(d){
+              return Math.abs(yScale3(d.dow) - yScale3(0)); 
+            };  
+        }
+
+        //Update y scale
+        yScale3.domain(d3.extent(dataset, x_value));
+        yScale_axis3.domain(d3.extent(dataset, axis_value));
+
+        //Update with correct data
+        var rect = stock.selectAll("rect").data(dataset);
+        rect.exit().remove();
+
+        //Transition chart to new data
+        rect
+        .transition()
+        .duration(1000)
+        .ease(d3.easeLinear)
+        
+        .on("start", function(){
+          d3.select(this)
+          .attr("width", "0.2")
+          .attr("class", color)
+        })
+        .on("end", function(){
+          d3.select(this)
+          .attr("x", function(d){
+            return xScale3(d.name);
+          })          
+        .attr("y",y_value) 
+        .attr("width", xScale3.bandwidth())
+        .attr("height", height_value)
+        .attr("class", color)
+        .on('mouseover', function(d){
+      //console.log(value)
+              d3.select(this)
+                  .style("opacity", 0.2)
+                  .style("stroke", "black")
+          
+          var info = div
+                  .style("opacity", 1)
+                  .style("left", (d3.event.pageX+10) + "px")
+                  .style("top", (d3.event.pageY-30) + "px")
+                  .style("font-size", "10px")
+                  .text(d.name);
+
+          if(value == "sp"){
+            info.append("p")
+            .style("font-size", "12px")
+                  .text(formatPercentmouse(d.sp500*1.0/100));
+
+          }
+          else if(value == "dow"){
+            info.append("p")
+            .style("font-size", "12px")
+                  .text(formatPercentmouse(d.dow*1.0/100));
+          }
+
+
+
+
+            })
+                .on('mouseout', function(d){
+                  d3.select(this)
+              .style('stroke-opacity',0.5)
+              .style('stroke','#a8a8a8')
+              .style("opacity",1);
+                         //});
+                          
+              div
+                  .style("opacity", 0);
+                }); 
+
+        })
+        
+        .attr({
+            x: function(d){
+              return xScale3(d.name);
+            },
+            y: y_value,
+            width: xScale3.bandwidth(),
+            height: height_value
+              
+        });
+        console.log(yScale3(0))
+        /*
+                console.log(value)
+        var yScale_axis = d3.scaleLinear()
+          .domain(d3.extent(x_value,
+            function(d){return d*1.0/100;}))
+          .range([w+padding,padding]);
+
+        var yAxis = d3.axisLeft().scale(yScale_axis).ticks(10).tickFormat(formatPercent); 
+                */
+        //Update y-axis
+        var yAxis3 = d3.axisLeft().scale(yScale_axis3).ticks(10).tickFormat(formatPercent);
+        stock.select(".y.axis")
+          .transition()
+          .duration(1000)
+          .ease(d3.easeLinear)
+          .call(yAxis3);
+
+        stock.append("text")
+        .attr("transform", "rotate(0)")
+        .attr("y", 210)
+        .attr("x",0)
+        .attr("color",'black')
+        .style("font-size", "12px")
+        .style("text-anchor", "axisRight")
+        .text("% change in"); 
+
+        stock.append("text")
+        .attr("transform", "rotate(0)")
+        .attr("y", 230)
+        .attr("x",0)
+        .attr("color",'black')
+        .style("font-size", "12px")
+        .style("text-anchor", "right")
+        .text("stock market ");       
+      });
+
+  </script>
+  </div>
+  <br>
+</body>
+
+
+<!-- Congress Control -->
+
+<div class="container-fluid bg-4 text-center">
+<h3 class="margin">#4: Presidential Party Control of Congress</h3>
+<img src="congress.png" class="img-responsive img-circle margin" style="display:inline" width="250" height="250">     
+<h4 class="margin"> It's usually easier to get things done if the House is on your side. </h4>
+  <p>Hover over the bars to see the % of control for each President! </p>
+ 
+</div>
+</div>
+
+<body>
+<br>
+<script>
+var width = 860;
+  var height = 500;
+
+  var padding = 25;
+
+
+  var congress = d3.select("body")
+        .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // main svg
+
+ 
+    g = congress.append("g").attr("transform", "translate(20,0)");       // move right 20px.
+
+    // x-scale and x-axis
+    var experienceName = ["", "0%","25%","50%","75%","100%"];
+    var formatSkillPoints = function (d) {
+        return experienceName[d % 6];
+    }
+    var xScale =  d3.scaleLinear()
+            .domain([0,120])
+            .range([0, 500]);
+
+    var xAxis = d3.axisTop()
+            .scale(xScale)
+            .ticks(6);
+            //.tickFormat(formatSkillPoints);
+
+    // Setting up a way to handle the data
+    var tree = d3.cluster()                 // This D3 API method setup the Dendrogram datum position.
+            .size([height, width - 500])    // Total width - bar chart width = Dendrogram chart width
+            .separation(function separate(a, b) {
+                return a.parent == b.parent            // 2 levels tree grouping for category
+                || a.parent.parent == b.parent
+                || a.parent == b.parent.parent ? 0.4 : 0.8;
+            });
+
+    var stratify = d3.stratify()            // This D3 API method gives cvs file flat data array dimensions.
+            .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
+
+    d3.csv("congress.csv", row, function(error, data) {
+        if (error) throw error;
+
+        var root = stratify(data);
+        tree(root);
+
+        // Draw every datum a line connecting to its parent.
+        var link = g.selectAll(".link")
+                .data(root.descendants().slice(1))
+                .enter().append("path")
+                .attr("class", "link")
+                .attr("d", function(d) {
+                    return "M" + d.y + "," + d.x
+                            + "C" + (d.parent.y + 100) + "," + d.x
+                            + " " + (d.parent.y + 100) + "," + d.parent.x
+                            + " " + d.parent.y + "," + d.parent.x;
+                });
+
+        // Setup position for every datum; Applying different css classes to parents and leafs.
+        var node = g.selectAll(".node")
+                .data(root.descendants())
+                .enter().append("g")
+                .attr("class", function(d) {return "node" + (d.children ? " node--internal" : " node--leaf"); })
+                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+        // Draw every datum a small circle.
+        node.append("circle")
+                .attr("r", 4);
+
+        // Setup G for every leaf datum.
+        var leafNodeG = g.selectAll(".node--leaf")
+                .append("g")
+                .attr("class", "node--leaf-g")
+                .attr("transform", "translate(" + 8 + "," + -13 + ")");
+
+        leafNodeG.append("rect")
+                .attr("class","shadow")
+                .style("fill", function (d) {return d.data.color;})
+                .attr("width", 2)
+                .attr("height", 30)
+                .attr("rx", 2)
+                .attr("ry", 2)
+                .transition()
+                    .duration(800)
+                    .attr("width", function (d) {return xScale(d.data.value);});
+
+        leafNodeG.append("text")
+                .attr("dy", 19.5)
+                .attr("x", 8)
+                .style("text-anchor", "start")
+                .style("font-size", "14px")
+                .text(function (d) {
+                    return d.data.id.substring(d.data.id.lastIndexOf(".") + 1);
+                });
+
+        // Write down text for every parent datum
+        var internalNode = g.selectAll(".node--internal");
+        internalNode.append("text")
+                .attr("y", -10)
+                .attr("x", 60)
+                .style("text-anchor", "middle")
+                .text(function (d) {
+                    return d.data.id.substring(d.data.id.lastIndexOf(".") + 1);
+                });
+
+        // Attach axis on top of the first leaf datum.
+        var firstEndNode = congress.append("g")//g.select(".node--leaf");
+            firstEndNode.append("g")
+                    .attr("class","xAxis")
+                    .attr("transform", "translate(" + 390 + "," + 20 + ")")
+                    .call(xAxis);
+
+            // tick mark for x-axis
+            firstEndNode.append("g")
+                    .attr("class", "grid")
+                    .attr("transform", "translate("+390+"," + (height - 15) + ")")
+                    .call(d3.axisBottom()
+                            .scale(xScale)
+                            .ticks(5)
+                            .tickSize(-height, 0, 0)
+                            .tickFormat("")
+                    ); 
+
+        // Emphasize the y-axis baseline.
+        congress.selectAll(".grid").select("line")
+                .style("stroke-dasharray","20,1")
+                .style("stroke","black");
+
+        // The moving ball
+        var ballG = congress.insert("g")
+                .attr("class","ballG")
+                .attr("transform", "translate(" + 1100 + "," + height/2 + ")");
+        ballG.insert("circle")
+                .attr("class","shadow")
+                .style("fill","steelblue")
+                .attr("r", 10);
+        ballG.insert("text")
+                .style("text-anchor", "middle")
+                .attr("dy",5)
+                .text("0.0")
+                .style("font-size", "14px");
+
+        // Animation functions for mouse on and off events.
+        d3.selectAll(".node--leaf-g")
+                .on("mouseover", handleMouseOver)
+                .on("mouseout", handleMouseOut);
+
+        function handleMouseOver(d) {
+            var leafG = d3.select(this);
+            console.log(d)
+
+            leafG.select("rect")
+                    .attr("stroke","#4D4D4D")
+                    .attr("stroke-width","2");
+
+
+            var ballGMovement = ballG.transition()
+                    .duration(400)
+                    .attr("transform", "translate(" + (d.y
+                            + xScale(d.data.value) + 90) + ","
+                            + (d.x + 1.5) + ")");
+
+            ballGMovement.select("circle")
+                    .style("fill", d.data.color)
+                    .attr("r", 16);
+
+            ballGMovement.select("text")
+                    .delay(300)
+                    .text(Number(d.data.value) + "%")
+                    .style("font-size", "14px");
+        }
+        function handleMouseOut() {
+            var leafG = d3.select(this);
+
+            leafG.select("rect")
+                    .attr("stroke-width","0");
+        }
+
+    });
+
+    function row(d) {
+        return {
+            id: d.id,
+            value: +d.value,
+            color: d.color
+        };
+    }
+</script>
+<br>
+</body>
+
+<!-- Final Rankins -->
+
+<div class="container-fluid bg-4 text-center">
+<h3 class="margin">#5: Final Ranking: Who Made the Most Impact?</h3>
+<img src="trophy.png" class="img-responsive img-circle margin" style="display:inline" width="250" height="250">     
+<h4 class="margin">Each president had a different amount of impact within the first 100 days of office--the numbers tell the story. Some presidents saw a jump in their approval ratings, others saw dramatic responses in the stock market. Some started off with significant control in congress, and still others signed a record number of executive orders. And others had big wins in multiple areas. </h4>
+
+  <p>Click on the raw results to see each president's numbers, and select normalized results to see the percentile ranking of each result! Hover over the squares for details! </p>
+ 
+</div>
+</div>
+
+<body>
+<br>
+<br>
+<br>
+    <div id="chart"></div>
+    <div id="dataset-picker">
+    </div>
+    <script type="text/javascript">
+      var margin5 = { top: 50, right: 0, bottom: 100, left: 200 },
+          width5 = 860 - margin5.left - margin5.right,
+          height5 = 430 - margin5.top - margin5.bottom,
+          gridSize5 = Math.floor(width5 / 12),
+          legendElementWidth = gridSize5*1.2,
+          buckets = 9,
+          //colors5 = ["#FFF7BC", "#FFEDA0", "#FEC44C", "#FFB90F",
+          //"#EEAD0E", "#CD950C", "#B8860B","#b38509", "#8B650B"],
+
+          //added grey color scale instead of gold
+          colors5 = ["#DDDDDD","#CCCCCC","#BBBBBB","#AAAAAA","#999999","#888888","#777777","#444444"]
+        
+          days = ['Executive Orders (#)', 'Approval Ratings (%)', 'Stock Market Impact (%)', 'Control of Congress (%)'],
+          times = ['FDR', 'HST', 'DDE','JFK', 'LBJ', 'RMN', 'JEC',
+          'RRR', 'GHWB', 'BJC', 'GWB', 'BHO']
+          times2 = ['Franklin D. Roosevelt', 'Harry S. Truman', 'Dwight D. Eisenhower','John F. Kennedy', 'Lyndon B. Johnson', 'Richard M. Nixon', 'Jimmy E. Carter',
+          'Ronard R. Reagan', 'George H.W. Bush', 'Bill J. Clinton', 'George W. Bush, Jr', 'Barack H. Obama'];
+          datasets = ["data_heatmap.tsv","data_heatmap_normalized.tsv"];
+
+      var heatmap = d3.select("#chart").append("svg")
+          .attr("width", width5 + margin5.left + margin5.right)
+          .attr("height", height5 + margin5.top + margin5.bottom)
+          .append("g")
+          .attr("transform", "translate(" + margin5.left + "," + margin5.top + ")");
+
+      var dayLabels = heatmap.selectAll(".dayLabel")
+          .data(days)
+          .enter().append("text")
+            .text(function (d) { return d; })
+            .attr("x", 0)
+            .attr("y", function (d, i) { return i * gridSize5; })
+            .style("text-anchor", "end")
+            .attr("transform", "translate(-6," + gridSize5 / 1.5 + ")")
+            .attr("class", function (d, i) { return ((i >= 0 && i <= 4) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
+
+      var timeLabels = heatmap.selectAll(".timeLabel")
+          .data(times)
+          .enter().append("text")
+            .text(function(d) { return d; })
+            .attr("x", function(d, i) { return i * gridSize5; })
+            .attr("y", 0)
+            .style("text-anchor", "middle")
+            .attr("transform", "translate(" + gridSize5 / 2 + ", -6)")
+            .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); })
+      .style("fill","black");
+
+      var heatmapChart = function(tsvFile) {
+        d3.tsv(tsvFile,
+        function(d) {
+          return {
+            day: +d.day,
+            hour: +d.hour,
+            value: +d.value
+          };
+        },
+        function(error, data) {
+          var colorScale5 = d3.scaleQuantile()
+              .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
+              .range(colors5);
+
+          var cards = heatmap.selectAll(".hour")
+              .data(data, function(d) {return d.day+':'+d.hour;});
+
+          cards.append("title");
+
+          cards.enter().append("rect")
+              .attr("x", function(d) { return (d.hour - 1) * gridSize5; })
+              .attr("y", function(d) { return (d.day - 1) * gridSize5; })
+              .attr("rx", 4)
+              .attr("ry", 4)
+              .attr("class", "hour bordered")
+              .attr("width", gridSize5)
+              .attr("height", gridSize5)
+              .style("fill", colors5[0]);
+
+          cards.transition().duration(1000)
+              .style("fill", function(d) { return colorScale5(d.value); });
+             
+
+          cards.select("title").text(function(d) { return times2[d.hour-1] + "'s " + days[d.day-1] + " : " + d.value; });
+
+          
+          cards.exit().remove();
+
+        });  
+      };
+      heatmapChart(datasets[0]);
+      
+      var datasetpicker = d3.select("#dataset-picker").selectAll(".dataset-button")
+        .data(datasets);
+
+
+      datasetpicker.enter()
+        .append("input")
+        .attr("value", function(d){ 
+          if (d=="data_heatmap_normalized.tsv"){
+            return "Results (Normalized)"}
+          else {
+          return "Results (Raw)"};})
+        .attr("type", "button")
+        .attr("class", "dataset-button")
+        .style("font-size", "16px")
+        .on("click", function(d) {
+          heatmapChart(d);
+        });
+
+    </script>
+  </body>
+    
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+  <p>Thank you! <a href="https://www.w3schools.com">www.w3schools.com[We need to make this a different website!]</a></p> 
+</footer>
